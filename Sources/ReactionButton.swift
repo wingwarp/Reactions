@@ -59,6 +59,11 @@ public final class ReactionButton: UIReactionControl {
   }
 
   /**
+    Should click action be ignored
+  */
+  public var ignoreClick: Bool = false
+
+  /**
    The reaction used to build the button.
    
    The reaction `title` fills the button one, and the `alternativeIcon` is used to display the icon. If the `alternativeIcon` is nil, the `icon` is used instead.
@@ -144,7 +149,10 @@ public final class ReactionButton: UIReactionControl {
   // MARK: - Responding to Gesture Events
 
   @objc func tapAction(_ gestureRecognizer: UITapGestureRecognizer) {
-    return
+
+    if self.ignoreClick {
+      return
+    }
 
     UIView.animateKeyframes(withDuration: 0.3, delay: 0, options: .calculationModeCubic, animations: { [weak self] in
         UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
